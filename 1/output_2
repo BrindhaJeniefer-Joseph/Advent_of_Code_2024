@@ -1,0 +1,63 @@
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <map>
+#include<sstream>
+using namespace std;
+
+int main()
+{
+
+    std::vector<int> left;
+    std::vector<int> right;
+
+    std::ifstream f("C:\\Users\\juerg\\Desktop\\adventOfCode2024.txt");
+
+    if (!f.is_open()) {
+        cerr << "Error opening the file!";
+        return 1;
+    }
+
+    int leftval, rightval;
+    std::string s;
+    while (std::getline(f, s)) {
+        std::stringstream ss(s);
+        ss >> leftval >> rightval;
+        left.push_back(leftval);
+        right.push_back(rightval);
+        }
+
+
+    if (left.size() != right.size()) {
+        std::cerr << "Error: Left and Right vectors must be the same size for one-to-one mapping!" << std::endl;
+        return 1;
+    }
+
+    std::vector<int> res;
+    int tmpres = 0;
+    for (size_t i = 0; i < left.size(); ++i) {
+        int count = 0;
+        int tmp = left[i];
+        for(int rightValue : right)
+        {
+            if(rightValue == tmp)
+            {
+                count++;
+            }
+           tmpres = tmp*count;
+        }
+        res.push_back(tmpres);
+    }
+
+    int resultSum = 0;
+    for (int i : res)
+    {
+        resultSum+= i;
+    }
+
+    cout << resultSum << endl;
+}
+
